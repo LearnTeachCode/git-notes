@@ -37,7 +37,7 @@ GitHub will send a response containing some JSON data for the requested commit. 
   }
 ```
 
-Save the SHA, because we'll need it later when we create our new commit in Step 5!
+Save the SHA, because we'll need it for the next steps!
 
 ## 2. Get the tree of the previous commit
 
