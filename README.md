@@ -11,14 +11,13 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 2. Fork the base repo containing the shared notes
 
-3. Commit to the repo using user input!
+3. Commit to the repo using user input! **See outline of steps to test in command line here: https://github.com/LearnTeachCode/git-notes/blob/master/git-commit-test-steps.md**
    1. Get the SHA of the previous commit
-   2. Get the tree of the previous commit
-   3. Get the blob of the previous commit
-   4. Create blob, appending user input to the previous content
-   5. Create new tree
-   6. Make the commit
-   7. Move the commit to the branch (in this case just master)
+   2. Get the tree of the previous commit   
+   3. Create a new blob (file)
+   4. Create new tree
+   5. Make the commit
+   6. Move the commit to the branch
 
 4. Create the pull request
    * Title and body of the PR
