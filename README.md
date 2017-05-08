@@ -9,6 +9,8 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 1. Authenticate the user with GiHub
 
+   Using https://github.com/prose/gatekeeper hosted on Heroku!
+
 2. Fork the base repo containing the shared notes
 
    See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork. **Important note:** "Forking a Repository happens asynchronously. Therefore, you may have to wait a short period before accessing the git objects." Here's an example of testing this in cURL via command line:
