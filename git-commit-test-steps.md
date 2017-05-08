@@ -98,22 +98,7 @@ After creating the new tree, GitHub's response will show the contents of the new
   "sha": "13f7216098033199493d9bc08b141922d3d46985",
   "url": "https://api.github.com/repos/LearnTeachCode/git-notes/git/trees216098033199493d9bc08b141922d3d46985",
   "tree": [
-    {
-      "path": "README.md",
-      "mode": "100644",
-      "type": "blob",
-      "sha": "685fb0bc26ba6f39bfb67e4e46726678f2108954",
-      "size": 1016,
-      "url": "https://api.github.com/repos/LearnTeachCode/git-notes/git/b685fb0bc26ba6f39bfb67e4e46726678f2108954"
-    },
-    {
-      "path": "test.md",
-      "mode": "100644",
-      "type": "blob",
-      "sha": "6d24476b2db867038f550c22b68c664cd34d89b1",
-      "size": 17,
-      "url": "https://api.github.com/repos/LearnTeachCode/git-notes/git/b6d24476b2db867038f550c22b68c664cd34d89b1"
-    }
+      // ...TREE DATA HERE...
   ],
   "truncated": false
 }
