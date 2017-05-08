@@ -85,7 +85,7 @@ Save the SHA of the new blob, because we'll need it for the next steps!
 
 **API Docs: https://developer.github.com/v3/git/trees/#create-a-tree**
 
-When creating a new tree, we need to specify the base tree to link it to and the contents of the new tree -- in this case, just a single file (the blob we created in Step 3), which we'll name `test.md`. Create a new tree by creating a POST request to `/repos/:user/:repo/git/trees/` with the following payload: `{"base_tree": "[SHA of the base tree saved from Step 2]", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "[SHA saved from Step 3]"}]"}`.
+When creating a new tree, we need to specify the base tree to link it to and the contents of the new tree -- in this case, just a single file (the blob we created in Step 3), which we'll name `test.md`. Create a new tree by creating a POST request to `/repos/:user/:repo/git/trees/` with the following payload: `{"base_tree": "[SHA of the base tree saved from Step 2]", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "[SHA saved from Step 3]"}]}`.
 
 ```
 curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/git/trees -d '{"base_tree": "60eeced8d029c08d6ef8c3ac5ee806ac048b2aba", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "6d24476b2db867038f550c22b68c664cd34d89b1"}]"}'
