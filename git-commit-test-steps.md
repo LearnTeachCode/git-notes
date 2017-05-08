@@ -139,4 +139,4 @@ For our last step, we'll update the HEAD reference, pointing it to the new commi
 curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/git/refs/heads/master -d '{"sha": "59fd06d961f2d65423aaab59139babcb4413486f"}'
 ```
 
-Congrats! To check that it worked as expected, take a look at the GitHub homepage for the project and check the updates for the latest commit. 
+Congrats! To check that it worked as expected, take a look at the GitHub project page. A new file named `test.md` should now be listed with the rest of the files, and the latest commit should reflect the changes!
