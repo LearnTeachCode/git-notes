@@ -37,7 +37,7 @@ GitHub will send a response containing some JSON data for the requested commit. 
   }
 ```
 
-Save the SHA, because we'll need it later when we create our new commit in Step 5!
+Save the SHA, because we'll need it for the next steps!
 
 ## 2. Get the tree of the previous commit
 
@@ -85,7 +85,7 @@ Save the SHA of the new blob, because we'll need it for the next steps!
 
 **API Docs: https://developer.github.com/v3/git/trees/#create-a-tree**
 
-When creating a new tree, we need to specify the base tree to link it to and the contents of the new tree -- in this case, just a single file (the blob we created in Step 3), which we'll name `test.md`. Create a new tree by creating a POST request to `/repos/:user/:repo/git/trees/` with the following payload: `{"base_tree": "[SHA of the base tree saved from Step 2]", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "[SHA saved from Step 3]"}]"}`.
+When creating a new tree, we need to specify the base tree to link it to and the contents of the new tree -- in this case, just a single file (the blob we created in Step 3), which we'll name `test.md`. Create a new tree by creating a POST request to `/repos/:user/:repo/git/trees/` with the following payload: `{"base_tree": "[SHA of the base tree saved from Step 2]", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "[SHA saved from Step 3]"}]}`.
 
 ```
 curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/git/trees -d '{"base_tree": "60eeced8d029c08d6ef8c3ac5ee806ac048b2aba", "tree": [{"path": "test.md", "mode": "100644", "type": "blob", "sha": "6d24476b2db867038f550c22b68c664cd34d89b1"}]"}'
@@ -139,4 +139,4 @@ For our last step, we'll update the HEAD reference, pointing it to the new commi
 curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/git/refs/heads/master -d '{"sha": "59fd06d961f2d65423aaab59139babcb4413486f"}'
 ```
 
-Congrats! To check that it worked as expected, take a look at the GitHub homepage for the project and check the updates for the latest commit. 
+Congrats! To check that it worked as expected, take a look at the GitHub project page. A new file named `test.md` should now be listed with the rest of the files, and the latest commit should reflect the changes!
