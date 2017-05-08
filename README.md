@@ -11,7 +11,16 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 2. Fork the base repo containing the shared notes
 
-3. Commit to the repo using user input! **See outline of steps to test in command line here: https://github.com/LearnTeachCode/git-notes/blob/master/git-commit-test-steps.md**
+   See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork. **Important note:** "Forking a Repository happens asynchronously. Therefore, you may have to wait a short period before accessing the git objects." Here's an example of testing this in cURL via command line:
+   
+   ```
+   curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
+   ```
+
+3. Commit to the repo using user input!
+
+   See outline of steps to test in command line here: https://github.com/LearnTeachCode/git-notes/blob/master/git-commit-test-steps.md
+
    1. Get the SHA of the previous commit
    2. Get the tree of the previous commit   
    3. Create a new blob (file)
@@ -20,9 +29,11 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    6. Move the commit to the branch
 
 4. Create the pull request
-   * Title and body of the PR
-   * Head branch in the form `username:branch`
-   * Base branch
-   * Set `mainter_can_modify` to true?
+
+   See API docs: https://developer.github.com/v3/pulls/#create-a-pull-request. **Important note:** Pull requests also seem to happen asynchornously! Here's an example of testing this in cURL via command line:
+   
+   ```
+   curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/pulls -d '{"title": "Test PR!", "body": "test", "base": "master", "head": "LearningNerd:master"}'
+   ```
 
 5. Display success message with the link to the newly-created pull request!
