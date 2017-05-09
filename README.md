@@ -9,7 +9,9 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 - Option 3: Make all commits directly from the moderator's account, using the optional "author" or "contributor" parameters to give credit for commits to each user's contribution. (Won't show up in each user's profile though. See https://help.github.com/articles/viewing-contributions-on-your-profile/)
 
-- Option 4: Look into possibility of using a [GitHub Integration ](https://developer.github.com/early-access/integrations/) for this?
+- Option 4: Just make all commits from moderator's account and give credit by appending people's names (or support anonymous users too?) within the content of the notes, without giving them credit within GitHub's system.
+
+- Option 5: Look into possibility of using a [GitHub Integration ](https://developer.github.com/early-access/integrations/) for this?
 
 **Ideas for later features/workflow:**
 - Let admins easily create a new notes file for each topic/meeting within the app.
