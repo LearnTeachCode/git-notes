@@ -11,56 +11,47 @@
 </head>
 <body>
 
-  <form action="" method="">
+  <main>
 
     <h1>Intro to JavaScript Workshop</h1>
     <p>May 15, 2017</p>
 
-    <h2>Notes</h2>
+    <h2><a href="https://github.com/LearnTeachCode">Show Notes</a></h2>
     <p>@ada said: My name is Ada. I Today I learned how to make an application with Node, and deploy it to Heroku.</p>
     <p>@jim said: I’m Jim. During the meetup, I learned about CSS grids and made a demo layout: http://github.com/jimthoburn/layout-demo</p>
     <p>@liz said: This is Liz. I’m creating a note-taking app using GitHub as a backbone for authentication and data storage.</p>
-
-    <!--
-    TBD: Should we link to the notes instead?
-    <p><a href="https://github.com/LearnTeachCode">See the notes!</a></p>
-    -->
 
     <!--
     Before sign in
     -->
     <h2>Add your notes!</h2>
     <p>
-      <button>Sign in with GitHub</button>
+      <a class="action" href="https://github.com/login/oauth/authorize?client_id=">Sign in with GitHub</a>
     </p>
 
     <!--
     After sign in
     -->
-    <p>
-      <label>
-        <span>Add your notes, @username!</span><br />
-        <textarea></textarea>
-      </label>
-    </p>
+    <form action="" method="post">
+      <p>
+        <label>
+          <span>Add your notes, @username!</span><br />
+          <textarea></textarea>
+        </label>
+      </p>
 
-    <p>
-      <button>Add Notes</button>
-    </p>
+      <p>
+        <button type="submit">Add Notes</button>
+      </p>
+    </form>
 
     <!--
-    Here’s an example sucess message…
-
     This can also be placed at the top of the page (which might be more noticeable after a page refresh.)
-
+    -->
     <section class="success" role="status">
       <h1>Your notes have been sent!</h1>
       <p>Once approved, they’ll appear in the <a href="https://github.com/LearnTeachCode">Show Notes</a></p>
     </section>
-    -->
-
-    <!--
-    TBD: Should we include suggestions?
 
     <h2>Notes can include…</h2>
     <ol>
@@ -74,9 +65,8 @@
     <blockquote>
       <p>My name is Ada. Today I learned how to make an application with Node, and deploy it to Heroku.</small></p>
     </blockquote>
-    -->
 
-  </form>
+  </main>
 
 </body>
 </html>
