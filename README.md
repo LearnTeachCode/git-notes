@@ -26,19 +26,19 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
    ```
+3. Get contents of an existing file
 
-3. Commit to the repo using user input!
+   See API docs: https://developer.github.com/v3/repos/contents/ Here's an example of requesting the raw contents of this file, testing this in cURL via command line:
+   
+   ```
+   curl -i -H 'Authorization: token TOKEN-GOES-HERE' -H 'Accept: application/vnd.github.v3.raw' https://api.github.com/repos/LearnTeachCode/git-notes/contents/README.md
+   ```
+
+4. Commit to the repo using user input!
 
    See outline of steps to test in command line here: https://github.com/LearnTeachCode/git-notes/blob/master/git-commit-test-steps.md
 
-   1. Get the SHA of the previous commit
-   2. Get the tree of the previous commit   
-   3. Create a new blob (file)
-   4. Create new tree
-   5. Make the commit
-   6. Move the commit to the branch
-
-4. Create the pull request
+5. Create the pull request
 
    See API docs: https://developer.github.com/v3/pulls/#create-a-pull-request. **Important note:** Pull requests also seem to happen asynchornously! Here's an example of testing this in cURL via command line:
    
@@ -46,4 +46,4 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/pulls -d '{"title": "Test PR!", "body": "test", "base": "master", "head": "LearningNerd:master"}'
    ```
 
-5. Display success message with the link to the newly-created pull request!
+6. Display success message with the link to the newly-created pull request!
