@@ -140,6 +140,7 @@
     /* SHIM: This doesn’t seem quite right. Is there a way to ask a grid item to “shrink to fit” its content? */
     form {
       display: inline-block;
+      max-width: 33em;
       margin-left: auto;
       margin-right: auto;
     }
