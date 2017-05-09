@@ -1,7 +1,9 @@
 # git-notes
 A small web app to let anyone easily append notes into a GitHub repo without needing to use Git or GitHub.
 
-**Next test (in progress):** Test using GitHub API to get contents of an existing file and *append* notes to it.
+**Next tests (in progress):**
+- Test using GitHub API to get contents of an existing file and *append* notes to it.
+- Look into possibly using this instead of the Git Data API: https://developer.github.com/v3/repos/contents/#update-a-file
 
 **Ideas for later features/workflow:***
 - Let admins easily create a new notes file for each topic/meeting within the app.
