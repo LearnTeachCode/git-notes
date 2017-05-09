@@ -1,6 +1,16 @@
 # git-notes
 A small web app to let anyone easily append notes into a GitHub repo without needing to use Git or GitHub.
 
+**Working around GitHub permissions:**
+
+- Option 1: Have each user fork, commit, and make a pull request for every update
+
+- Option 2: Add all users as collaborators on the base repo first (either manually or automate it for organizations with https://developer.github.com/v3/repos/collaborators/), and then have each user commit directly for every update
+
+- Option 3: Make all commits directly from the moderator's account, using the optional "author" or "contributor" parameters to give credit for commits to each user's contribution. (Won't show up in each user's profile though. See https://help.github.com/articles/viewing-contributions-on-your-profile/)
+
+- Option 4: Look into possibility of using a [GitHub Integration ](https://developer.github.com/early-access/integrations/) for this?
+
 **Ideas for later features/workflow:**
 - Let admins easily create a new notes file for each topic/meeting within the app.
 - Allow all users to append to notes and view changes *in real time* with Firebase or WebSocket via server?
