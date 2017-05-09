@@ -13,11 +13,11 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 ## Back-end stuff:
 
-1. Authenticate the user with GiHub
+### 1. Authenticate the user with GiHub
 
    Using https://github.com/prose/gatekeeper hosted on Heroku!
 
-2. Fork the base repo containing the shared notes
+### 2. Fork the base repo containing the shared notes
 
    See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork.
    
@@ -26,7 +26,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
    ```
-3. Get contents of an existing file
+### 3. Get contents of an existing file
 
    See API docs: https://developer.github.com/v3/repos/contents/#get-contents
    
@@ -38,7 +38,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    
    Be sure to save the SHA of the file to use it in Step 4 below. **Note:** The file contents are encoded in Base64, so we can use the [`window.atob()` method](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/atob) in decode it (only available in IE 10+).
 
-4. Commit to the repo to append user input to shared notes
+### 4. Commit to the repo to append user input to shared notes
 
    See API docs: https://developer.github.com/v3/repos/contents/#update-a-file
    
@@ -52,7 +52,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    
    **For reference:** here's an outline of how to make a Git commit *the hard way* with the low-level Git Data API: https://github.com/LearnTeachCode/git-notes/blob/master/git-commit-test-steps.md
 
-5. Create the pull request
+### 5. Create the pull request
 
    See API docs: https://developer.github.com/v3/pulls/#create-a-pull-request.
    
@@ -62,4 +62,4 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/pulls -d '{"title": "Test PR!", "body": "test", "base": "master", "head": "LearningNerd:master"}'
    ```
 
-6. Display success message with the link to the newly-created pull request!
+### 6. Display success message with the link to the newly-created pull request!
