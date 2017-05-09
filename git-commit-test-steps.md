@@ -1,6 +1,6 @@
-# Steps to Create a Git Commit with GitHub API
+# How to create a Git commit (the hard way!) with the GitHub API
 
-This is a walkthrough for how to make a Git commit using the GitHub API, testing the steps with cURL via the command line.
+This is a walkthrough for how to make a Git commit the hard way using the GitHub API, testing the steps with cURL via the command line. **The easy way:** If you just want to update or create a *single* file, you can do it the easy way following the API docs here: https://developer.github.com/v3/repos/contents/
 
 **Prerequisites:**
 - A good tutorial to go through first is the official [GitHub API Getting Started Guide](https://developer.github.com/guides/getting-started/).
