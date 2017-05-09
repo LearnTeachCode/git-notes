@@ -19,7 +19,9 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
 2. Fork the base repo containing the shared notes
 
-   See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork. **Important note:** "Forking a Repository happens asynchronously. Therefore, you may have to wait a short period before accessing the git objects." Here's an example of testing this in cURL via command line:
+   See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork.
+   
+   **Important note:** "Forking a Repository happens asynchronously. Therefore, you may have to wait a short period before accessing the git objects." Here's an example of testing this in cURL via command line:
    
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
