@@ -26,6 +26,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
    ```
+   
 ### 3. Get contents of an existing file
 
    See API docs: https://developer.github.com/v3/repos/contents/#get-contents
@@ -44,7 +45,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
    
    After appending the user's input to the existing file contents and then encoding the final string in Base64 with the [`window.btoa()` method](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa), here's an example of updating a file: 
    
-      ```
+   ```
    curl -i -X PUT -H 'Authorization: token TOKEN-GOES-HERE' -H https://api.github.com/repos/LearnTeachCode/git-notes/contents/test.md -d '{"path": "test.md", "message": "Test updating file via GitHub API", "content": "IyBUaGlzIGlzIGEgdGVzdCEKCkFuZCBoZXJlIGlzIHNvbWUgdXNlciBpbnB1dCBhcHBlbmRlZCB0byB0aGUgcHJldmlvdXMgZmlsZSBjb250ZW50cy4K", "sha": "SHA-FROM-STEP-3-GOES-HERE"}'
    ```
    
