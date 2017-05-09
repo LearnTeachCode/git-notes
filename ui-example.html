@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add your notes, Intro to JavaScript Workshop</title>
+
+  <style>
+    html, body {
+      height: 100%;
+    }
+    body {
+      font: 100%/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: rgb(242, 242, 242);
+      color: rgb(51, 51, 51);
+    }
+    @supports (display: grid) {
+      body {
+        display: grid;
+        grid-template-columns: 100vw;
+        align-items: center;
+        justify-content: center;
+        justify-content: center;
+      }
+    }
+    a {
+      color: inherit;
+    }
+    a:hover,
+    a:active,
+    a:focus {
+      color: black;
+    }
+    h1 {
+      font-size: 2em;
+      font-weight: normal;
+    }
+    h2 {
+      font-size: 1.5em;
+      font-weight: normal;
+      margin-top: 3em;
+    }
+    form {
+      padding: 1.5em 1.5em 6em;
+      display: inline-block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form label > span:first-child {
+      font-size: 1.5em;
+      font-weight: normal;
+      margin-top: 3em;
+      display: block;
+    }
+    form label > span:first-child + br {
+      display: none;
+    }
+    textarea {
+      margin-top: 0.375em;
+      padding: 0.75em;
+      font-family: inherit;
+      font-size: 1.5em;
+      width: 100%;
+      max-width: 33em;
+      height: 6.75em;
+      box-sizing: border-box;
+      border-width: 0;
+      border-radius: 0.25em;
+    }
+    button {
+      background: rgb(51, 51, 51);
+      color: white;
+      border-radius: 0.25em;
+      border-width: 0;
+      font-family: inherit;
+      font-size: 1em;
+      padding: 0.5em 1em;
+    }
+    button:hover,
+    button:active,
+    button:focus {
+      background: black;
+      color: white;
+    }
+    blockquote {
+      margin: 0;
+      padding: 0;
+      font-style: italic;
+    }
+    blockquote p::before {
+      content: "“";
+    }
+    blockquote p::after {
+      content: "”";
+    }
+    .success {
+      margin: 3em 0;
+      background: rgba(0, 0, 0, 0.1);
+      padding: 1.5em;
+      border-radius: 0.25em;
+    }
+    .success h1,
+    .success p {
+      margin: 0;
+    }
+  </style>
+
+</head>
+<body>
+
+  <form action="" method="post">
+
+    <h1>Intro to JavaScript Workshop</h1>
+
+    <p><a href="https://github.com/LearnTeachCode">Show Notes</a></p>
+
+    <p class="text">
+      <label>
+        <span>Add your notes!</span><br />
+        <textarea></textarea>
+      </label>
+    </p>
+
+    <p class="submit">
+      <button type="submit">Add Notes</button>
+    </p>
+
+    <!-- This can also be placed at the top of the page (which might be more noticeable after a page refresh.) -->
+    <section class="success" role="status">
+      <h1>Your notes have been sent!</h1>
+      <p>Once approved, they’ll appear in the <a href="https://github.com/LearnTeachCode">Show Notes</a></p>
+    </section>
+
+    <h2>Notes can include…</h2>
+    <ol>
+      <li>Your name</li>
+      <li>What you learned today</li>
+      <li>A project you’re working on</li>
+      <li>Resources and links you think others may benefit from</li>
+    </ol>
+
+    <h2>Examples…</h2>
+    <blockquote>
+      <p>My name is Ada (@ada). Today I learned how to make an application with Node, and deploy it to Heroku.</small></p>
+    </blockquote>
+
+  </form>
+
+</body>
+</html>
