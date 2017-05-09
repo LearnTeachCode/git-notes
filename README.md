@@ -21,7 +21,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
    See API docs: https://developer.github.com/v3/repos/forks/#create-a-fork.
    
-   **Important note:** "Forking a Repository happens asynchronously. Therefore, you may have to wait a short period before accessing the git objects." Here's an example of testing this in cURL via command line:
+   Here's an example of testing this in cURL via command line:
    
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/forks -d ''
@@ -56,7 +56,7 @@ A small web app to let anyone easily append notes into a GitHub repo without nee
 
    See API docs: https://developer.github.com/v3/pulls/#create-a-pull-request.
    
-   **Important note:** Pull requests also seem to happen asynchornously! Here's an example of testing this in cURL via command line:
+   Here's an example of testing this in cURL via command line:
    
    ```
    curl -i -H 'Authorization: token TOKEN-GOES-HERE' https://api.github.com/repos/LearnTeachCode/git-notes/pulls -d '{"title": "Test PR!", "body": "test", "base": "master", "head": "LearningNerd:master"}'
