@@ -1,5 +1,13 @@
 # git-notes
-A small web app to let anyone easily append notes into a GitHub repo without needing to use Git or GitHub
+A small web app to let anyone easily append notes into a GitHub repo without needing to use Git or GitHub.
+
+**Next test (in progress):** Test using GitHub API to get contents of an existing file and *append* notes to it.
+
+**Ideas for later features/workflow:***
+- Let admins easily create a new notes file for each topic/meeting within the app.
+- Allow all users to append to notes and view changes *in real time* with Firebase or WebSocket via server?
+   - Temporarily save changed on server and/or in localStorage?
+   - Should we make the forks/commits/PRs/merges upon each user contribution, or just make *one* commit at the end via the admin's GitHub account?
 
 ## Front-end stuff:
 - Bare minimum: static web page with a log in with GitHub button, a text box to type in some notes, and button to save it
