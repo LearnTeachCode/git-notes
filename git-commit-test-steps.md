@@ -17,6 +17,8 @@ This is a walkthrough for how to make a Git commit using the GitHub API, testing
 - http://www.nolim1t.co/2017/03/08/uploading-to-github-through-the-API.html
 - https://mdswanson.com/blog/2011/07/23/digging-around-the-github-api-take-2.html
 
+## Version 1: 
+
 ## 1. Get the SHA of the previous commit
 
 **API Docs: https://developer.github.com/v3/git/refs/#get-a-reference**
