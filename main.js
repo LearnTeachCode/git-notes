@@ -15,17 +15,31 @@ var userForkedRepoName;
 var pullRequestLink;
 
 // VARIABLES FOR GIT COMMIT PROCESS
-var notesFileName = 'test.md';	// for testing!
-var pullRequestTitle = "Hmmm a test PR"; // for testing!
+var notesFileName = '2017-05-10-notes.md';	// for testing!
+var pullRequestTitle = "Appended notes!"; // for testing!
 var pullRequestBody = '';
 var notesFileSha;
 var newCommitSha;
 
 // Elements and user input:
 var messageSection = document.getElementById("messageSection");
+var displaySection = document.getElementById("displaySection");
 var loginSection = document.getElementById("loginSection");
 var inputSection = document.getElementById("inputSection");
 var userNameSpan = document.getElementById("userNameSpan");
+
+// Before user login or anything else, display the existing notes!
+getWithCustomHeader('https://api.github.com/repos/LearnTeachCode/git-notes/contents/' + notesFileName)
+  .then(function (notesResponse){
+    console.log('GitHub response after requesting notes:\n');
+    console.log(notesResponse);
+    
+    // TODO: Better error handling!
+
+    // Display the HTML of rendered notes
+    displaySection.innerHTML = notesResponse;   
+        
+  }).catch(logAndDisplayError);
 
 // Get the temporary GitHub code from URL params, as in ?code=gitHubTemporaryCodeHere
 var gitHubTemporaryCodeArray = window.location.href.match(/\?code=(.*)/);
@@ -48,8 +62,6 @@ if (gitHubTemporaryCodeArray) {
     console.log('Authentication response from Gatekeeper:\n');
     console.log(authResponse);
 
-    // TODO: Handle "bod_code" and other errors!
-
     // TODO: Maybe fork the repo and fetch contents and user info here,
     // to give GitHub some more time to process the fork before making a commit to it?
 
@@ -61,7 +73,7 @@ if (gitHubTemporaryCodeArray) {
     // Hide the "loading" message when done authenticating user
     messageSection.classList.add('hidden');    
         
-  });
+  }).catch(logAndDisplayError);
 
 }
 
@@ -159,6 +171,26 @@ function get(url) {
   return new Promise(function(succeed, fail) {
     var req = new XMLHttpRequest();
     req.open("GET", url, true);
+    req.addEventListener("load", function() {
+      if (req.status < 400)
+        succeed(req.responseText);
+      else
+        fail(new Error("Request failed: " + req.statusText));
+    });
+    req.addEventListener("error", function() {
+      fail(new Error("Network error"));
+    });
+    req.send(null);
+  });
+}
+
+function getWithCustomHeader(url, customHeader) {
+  return new Promise(function(succeed, fail) {
+    var req = new XMLHttpRequest();
+    req.open("GET", url, true);
+    
+    req.setRequestHeader('Accept', 'application/vnd.github.v3.html');
+
     req.addEventListener("load", function() {
       if (req.status < 400)
         succeed(req.responseText);
