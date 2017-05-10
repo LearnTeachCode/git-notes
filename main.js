@@ -11,6 +11,8 @@ var GITHUB_OWNER = 'LearnTeachCode';
 // VARIABLES FOR CURRENT USER:
 var gitHubAccessToken;	
 var userName;
+var userProfileLink;
+var userPhoto;
 var userForkedRepoName;
 var pullRequestLink;
 
@@ -79,6 +81,8 @@ if (gitHubTemporaryCodeArray) {
 
     // Save username and name of newly-forked repo
     userName = forkResponse.owner.login;
+    userProfileLink = forkResponse.owner.html_url;
+    userPhoto = forkResponse.owner.avatar_url;
     userForkedRepoName = forkResponse.name;
 
     // Display username
@@ -121,7 +125,7 @@ function submitToGitHub() {
     var fileContents = window.atob(contentsResponse.content.slice(0, -1));
     
     // Append user input to existing file contents
-    fileContents += '\r\n\n' + userText + '\n';
+    fileContents += '\r\n**[' + userName + '](' + userProfileLink + '):**' + userText + '\r\n';
     
     // Encode into base64 again
     fileContents = window.btoa(fileContents);
