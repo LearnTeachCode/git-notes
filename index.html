@@ -1,20 +1,78 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Git Notes Test</title>
-		<meta charset="utf-8">    
-		<link rel="stylesheet" href="style.css">
-	</head>
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<body>
-	
-  <h1>Git Notes Test</h1>
-  <a href="https://github.com/login/oauth/authorize?client_id=50937a23e1d140199e95&amp;scope=public_repo"><button id="login">Sign in with GitHub!</button></a>
-  <textarea id="usertext">Quick test: add your notes here and click submit to save them to a new file called test.md in our GitHub repo!</textarea>
-  <button id="submit">Submit</button>
-  <p id="msg"></p>
-		
+  <title>Add your notes, Intro to JavaScript Workshop</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+  <main>
+
+    <h1>Intro to JavaScript Workshop</h1>
+    <p>May 15, 2017</p>
+
+    <h2><a href="https://github.com/LearnTeachCode">Show Notes</a></h2>
+
+    <!-- TBD: Include the notes on the page? -->
+    <p>@ada said: My name is Ada. I Today I learned how to make an application with Node, and deploy it to Heroku.</p>
+    <p>@jim said: I’m Jim. During the meetup, I learned about CSS grids and made a demo layout: http://github.com/jimthoburn/layout-demo</p>
+    <p>@liz said: This is Liz. I’m creating a note-taking app using GitHub as a backbone for authentication and data storage.</p>
+
+    <!--
+    Before sign in
+    -->
+    <section id="loginSection">
+      <h2>Add your notes!</h2>
+      <p>
+        <a class="action" id="login" href="https://github.com/login/oauth/authorize?client_id=50937a23e1d140199e95&amp;scope=public_repo">Sign in with GitHub</a>
+      </p>
+    </section>
+
+
+    <section class="success hidden" role="status" id="messageSection">      
+    </section>
+
+    <!--
+    After sign in
+    -->
+    <section id="inputSection" class="hidden">
+      <!-- <form> Commenting out form to prevent page refresh, lazy fix for now! -->
+        <p>
+          <label>
+            <span class="label">Add your notes, <span id="userNameSpan">friend</span>!</span><br />
+            <textarea id="userText">Today I learned...</textarea>
+          </label>
+        </p>
+
+        <p>
+          <button id="submit">Submit Notes</button>
+        </p>
+      <!-- </form> -->
+    </section>
+    <!--
+    This can also be placed at the top of the page (which might be more noticeable after a page refresh.)
+    -->
+
+    <h2>Notes can include…</h2>
+    <ol>
+      <li>Your name</li>
+      <li>What you learned today</li>
+      <li>A project you’re working on</li>
+      <li>Resources and links you think others may benefit from</li>
+    </ol>
+
+    <h2>Examples…</h2>
+    <blockquote>
+      <p>My name is Ada. Today I learned how to make an application with Node, and deploy it to Heroku.</small></p>
+    </blockquote>
+
+  </main>
+
   <script src="main.js"></script>
-
-	</body>
+</body>
 </html>

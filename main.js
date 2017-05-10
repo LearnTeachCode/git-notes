@@ -12,18 +12,20 @@ var GITHUB_OWNER = 'LearnTeachCode';
 var gitHubAccessToken;	
 var userName;
 var userForkedRepoName;
+var pullRequestLink;
 
 // VARIABLES FOR GIT COMMIT PROCESS
-var newFileName = 'test.md';	// for testing!
-var previousCommitSha;
-var previousTreeSha;
-var newBlobSha;
-var newTreeSha;
+var notesFileName = 'test.md';	// for testing!
+var pullRequestTitle = "Hmmm a test PR"; // for testing!
+var pullRequestBody = '';
+var notesFileSha;
 var newCommitSha;
 
 // Elements and user input:
-var messageBox = document.getElementById("msg");
-var userText = document.getElementById("usertext").value;
+var messageSection = document.getElementById("messageSection");
+var loginSection = document.getElementById("loginSection");
+var inputSection = document.getElementById("inputSection");
+var userNameSpan = document.getElementById("userNameSpan");
 
 // Get the temporary GitHub code from URL params, as in ?code=gitHubTemporaryCodeHere
 var gitHubTemporaryCodeArray = window.location.href.match(/\?code=(.*)/);
@@ -31,17 +33,34 @@ var gitHubTemporaryCodeArray = window.location.href.match(/\?code=(.*)/);
 // If code exists (meaning the user clicked the login button, gave access in GitHub, and was redirected):
 if (gitHubTemporaryCodeArray) {
 
-  // First, get the access token from Gatekeeper using the temporary code
-  // (Gatekeeper exchanges this for an access token, using the stored client ID and client secret)
+  // Hide login section if user has started the login process
+  loginSection.classList.add('hidden');
+  inputSection.classList.remove('hidden');
+
+  // Display loading message
+  messageSection.classList.remove('hidden');
+  messageSection.innerHTML = "<p><em>...Loading...</em></p>";
+
+  // Step 1: Authenticate the user with GitHub
+  // (Gatekeeper exchanges temporary code for an access token, using the stored client ID and client secret)
   get('https://gatekeeper-git-notes.herokuapp.com/authenticate/' + gitHubTemporaryCodeArray[1])
   .then(JSON.parse).then(function (authResponse){
     console.log('Authentication response from Gatekeeper:\n');
     console.log(authResponse);
 
+    // TODO: Handle "bod_code" and other errors!
+
+    // TODO: Maybe fork the repo and fetch contents and user info here,
+    // to give GitHub some more time to process the fork before making a commit to it?
+
+    // TODO: update userNameSpan with authenticated user's info and photo
+
     // Save the access token for later API calls!
     gitHubAccessToken = authResponse.token;
 
-    messageBox.textContent = "You're logged in! Type some notes and click Submit when you're done!";
+    // Hide the "loading" message when done authenticating user
+    messageSection.classList.add('hidden');    
+        
   });
 
 }
@@ -51,14 +70,19 @@ document.getElementById('submit').addEventListener('click', submitToGitHub);
 
 function submitToGitHub() {
   // If user hasn't signed in first, notify user to do so before submitting notes!
-  if (!gitHubAccessToken) {
-  	messageBox.textContent = "<strong>Please log in with GitHub first! Then you can submit your notes.</strong>";
+  if (!gitHubAccessToken) {    
+  	messageSection.innerHTML = "<p><strong>Please log in with GitHub first! Then you can submit your notes.</strong></p>";
   	return;	// Exit from this function, skipping the code below
   }
 
-  messageBox.innerHTML = "<em>...Loading...</em>";
+  // Get user input
+  var userText = document.getElementById("userText").value;
 
-  // First, fork the base repo onto the user's account
+  // Display loading message
+  messageSection.innerHTML = "<p><em>...Loading...</em></p>";
+  messageSection.classList.remove('hidden');
+
+  // Step 2: Fork the base repo containing the shared notes
   postWithToken('https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/forks', {}, gitHubAccessToken)
   .then(JSON.parse).then(function (forkResponse){
     console.log('GitHub response after forking the base repo:\n');
@@ -68,90 +92,61 @@ function submitToGitHub() {
     userName = forkResponse.owner.login;
     userForkedRepoName = forkResponse.name;
 
-    // Next: COMMITTING A NEW FILE! It's a six step process!
-    // Step 1: Get the SHA of the previous commit
-    return get('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/refs/heads/master');
+    // Step 3: Get contents of the existing notes file    
+    return get('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/contents/' + notesFileName);
 
-  }).then(JSON.parse).then(function (step1Response){
-    console.log('GitHub response after requesting SHA of previous commit:\n');
-    console.log(step1Response);
+  }).then(JSON.parse).then(function (contentsResponse){
+    console.log('GitHub response after getting the file contents:\n');
+    console.log(contentsResponse);
 
-    // Save SHA of the previous commit
-    previousCommitSha = step1Response.object.sha;
+    // Save the SHA of the file
+    notesFileSha = contentsResponse.sha;
 
-    // Step 2: Get the tree of the previous commit
-    return get('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/commits/' + previousCommitSha);
-
-  }).then(JSON.parse).then(function (step2Response){
-    console.log('GitHub response after requesting tree of previous commit:\n');
-    console.log(step2Response);
-
-    // Save SHA of the previous tree
-    previousTreeSha = step2Response.tree.sha;
-
-    // Step 3: Create a new blob (file)
-    var newBlobData = {"content": "# 456This is a test!\n" + userText + "\n", "encoding": "utf-8"};
-    return postWithToken('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/blobs', newBlobData, gitHubAccessToken);
-
-  }).then(JSON.parse).then(function (step3Response){
-    console.log('GitHub response after creating new blob:\n');
-    console.log(step3Response);
-
-    // Save SHA of the new blob
-    newBlobSha = step3Response.sha;
-
-    // Step 4: Create a new tree
-    var newTreeData = {
-    	"base_tree": previousTreeSha,
-    	"tree": [
-    		{"path": newFileName, "mode": "100644", "type": "blob", "sha": newBlobSha}
-    	]
-    };
-    return postWithToken('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/trees', newTreeData, gitHubAccessToken);
-
-  }).then(JSON.parse).then(function (step4Response){
-    console.log('GitHub response after creating new tree:\n');
-    console.log(step4Response);
-
-    // Save SHA of the new tree
-    newTreeSha = step4Response.sha;
-
-    // Step 5: Create a new commit
-    var newCommitData = {
-    	"parents": [previousCommitSha],
-    	"tree": newTreeSha,
-    	"message": "Testing remote commit via GitHub API"
-	};
-	return postWithToken('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/commits', newCommitData, gitHubAccessToken);
-
-  }).then(JSON.parse).then(function (step5Response){
-    console.log('GitHub response after creating new commit:\n');
-    console.log(step5Response);
-
-    // Save SHA of the new commit
-    newCommitSha = step5Response.sha;
-
-    // Step 6: Move the commit to the branch
-    var newBranchRefData = {"sha": newCommitSha};
-	return postWithToken('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/git/refs/heads/master', newBranchRefData, gitHubAccessToken);
-
-  }).then(function (step6response){
-    console.log("GitHub response after moving commit onto the branch:\n");
-    console.log(step6response);
-
-    // Finally, make a pull request!
-    var pullRequestData = {"title": "Test PR!", "body": "test 123!", "base": "master", "head": userName + ":master"};
+    // Decode, save, and display the contents (slicing off last character to prevent encoding issues)
+    var fileContents = window.atob(contentsResponse.content.slice(0, -1));
+    
+    // Append user input to existing file contents
+    fileContents += userText + '\n';
+    
+    // Encode into base64 again
+    fileContents = window.btoa(fileContents);
+    
+    // Step 4: Commit to the repo, appending user input to shared notes
+    var updateFileData = {"path": notesFileName, "message": "Test updating file via GitHub API", "content": fileContents, "sha": notesFileSha};      
+    return postWithToken('https://api.github.com/repos/' + userName + '/' + userForkedRepoName + '/contents/' + notesFileName, updateFileData, gitHubAccessToken, "PUT");
+    
+  }).then(JSON.parse).then(function (updateResponse){
+    console.log('GitHub response after updating the file:\n');
+    console.log(updateResponse);
+    
+    // Step 5: Create a new pull request
+    var pullRequestData = {"title": pullRequestTitle, "body": pullRequestBody, "base": "master", "head": userName + ":master"};
     return postWithToken('https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/pulls', pullRequestData, gitHubAccessToken);
 
   }).then(JSON.parse).then(function (pullResponse){
-  	messageBox.innerHTML = '<strong>Notes test submitted successfully!</strong> <a href="' + pullResponse.html_url + '">View your newly-created pull request here!</a>';
+    console.log('GitHub response after creating the pull request:\n');
+    console.log(pullResponse);
+    
+    // If a new pull request was successfully created, save its public link
+    if (pullResponse.html_url) {
+      pullRequestLink = pullResponse.html_url;
+    }
+
+    // Step 6: Display success message with link to pull request
+    messageSection.classList.remove('hidden');
+  	messageSection.innerHTML = '<h1>Your notes have been submitted!</h1><p><a href="' + pullRequestLink + '">View your newly-created pull request here!</a> Once approved, your notes will appear in the <a href="https://github.com/LearnTeachCode">Show Notes</a></p>';    
+
+    // TODO: Prevent "pull request already exists" error somehow!
+    // ...Maybe check first if user has already created a PR?
+
   }).catch(logAndDisplayError); // Log error to console and display on the web page too
 
 } // end of submitToGitHub function
 
 function logAndDisplayError (errorMessage) {
 	console.log(errorMessage);
-	messageBox.textContent = errorMessage;
+  messageSection.classList.remove('hidden');
+	messageSection.innerHTML = '<p><strong>' + errorMessage + '</strong></p>';
 }
 
 /* -------------------------------------------------
@@ -178,11 +173,11 @@ function get(url) {
 }
 
 // Returns a promise for a POST request
-function postWithToken(url, postDataObject, accessToken) {
+function postWithToken(url, postDataObject, accessToken, method) {
   return new Promise(function(succeed, fail) {
-    var req = new XMLHttpRequest();
+    var req = new XMLHttpRequest();    
 
-    req.open("POST", url, true);
+    req.open(method || "POST", url, true);
     
     // Set header for POST, like sending form data
     req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -190,14 +185,17 @@ function postWithToken(url, postDataObject, accessToken) {
     req.setRequestHeader('Authorization', 'token ' + accessToken);
 
     req.addEventListener("load", function() {
-      if (req.status < 400)
+      // NOTE: Exception for "A pull request already exists" 422 error!
+      if (req.status < 400 || ( req.status == 422 && JSON.parse(req.responseText).errors[0].message.includes("A pull request already exists") ) ) {
         succeed(req.responseText);
-      else
+      } else {
         fail(new Error("Request failed: " + req.statusText));
+      }
     });
     req.addEventListener("error", function() {
       fail(new Error("Network error"));
-    });
+    });      
+
     req.send(JSON.stringify(postDataObject));
   });
 }
