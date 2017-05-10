@@ -1,8 +1,8 @@
-// CURRENT SETUP FOR TESTING:
-// GitHub OAuth app points to http://localhost:8080/
-// Gatekeeper hosted at https://gatekeeper-git-notes.herokuapp.com/
-// Use a local server to test the app, like https://www.npmjs.com/package/http-server
-// NOTE: remember to do a HARD refresh to test new changes locally.
+// CURRENT SETUP FOR PRODUCTION VERSION
+// GitHub OAuth app points to http://learnteachcode.org/git-notes/
+// Gatekeeper hosted at https://live-gatekeeper-git-notes.herokuapp.com/
+
+// TODO: Set up SSL for HTTPS !!! And better security for GitHub auth process, see API docs.
 
 // For testing, we'll use this as the master repo:
 var GITHUB_REPO = 'git-notes';
@@ -61,7 +61,7 @@ if (gitHubTemporaryCodeArray) {
 
   // Step 1: Authenticate the user with GitHub
   // (Gatekeeper exchanges temporary code for an access token, using the stored client ID and client secret)
-  get('https://gatekeeper-git-notes.herokuapp.com/authenticate/' + gitHubTemporaryCodeArray[1])
+  get('https://live-gatekeeper-git-notes.herokuapp.com/authenticate/' + gitHubTemporaryCodeArray[1])
   .then(JSON.parse).then(function (authResponse){
     console.log('Authentication response from Gatekeeper:\n');
     console.log(authResponse);
