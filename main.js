@@ -125,7 +125,7 @@ function submitToGitHub() {
     var fileContents = window.atob(contentsResponse.content.slice(0, -1));
     
     // Append user input to existing file contents
-    fileContents += '\r\n**[' + userName + '](' + userProfileLink + '):**' + userText + '\r\n';
+    fileContents += '\r\n**[' + userName + '](' + userProfileLink + '):** ' + userText + '\r\n';
     
     // Encode into base64 again
     fileContents = window.btoa(fileContents);
