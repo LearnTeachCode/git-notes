@@ -1,3 +1,14 @@
+---
+
+---
+// RUN LOCALLY IN DEV MODE:
+// JEKYLL_ENV=development bundle exec jekyll serve
+
+{% assign gatekeeper = "https://live-gatekeeper-git-notes.herokuapp.com/authenticate/" %}
+{% if jekyll.environment == "development" %}
+  {% assign gatekeeper = "https://gatekeeper-git-notes.herokuapp.com/authenticate/" %}
+{% endif %}
+
 // CURRENT SETUP FOR TESTING:
 // GitHub OAuth app points to http://localhost:8080/
 // Gatekeeper hosted at https://gatekeeper-git-notes.herokuapp.com/
@@ -61,7 +72,7 @@ if (gitHubTemporaryCodeArray) {
 
   // Step 1: Authenticate the user with GitHub
   // (Gatekeeper exchanges temporary code for an access token, using the stored client ID and client secret)
-  get('https://gatekeeper-git-notes.herokuapp.com/authenticate/' + gitHubTemporaryCodeArray[1])
+  get('{{gatekeeper}}' + gitHubTemporaryCodeArray[1])
   .then(JSON.parse).then(function (authResponse){
     console.log('Authentication response from Gatekeeper:\n');
     console.log(authResponse);
