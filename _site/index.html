@@ -1,7 +1,3 @@
----
-
----
-
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
@@ -28,14 +24,12 @@
     <!--
     Before sign in
     -->
-    {% assign clientid = "f6280b81cfae11da471a" %}
-    {% if jekyll.environment == "development" %}
-      {% assign clientid = "50937a23e1d140199e95" %}
-    {% endif %}
+    
+    
     <section id="loginSection">
       <h2>Add your notes!</h2>
       <p>
-        <a class="action" id="login" href="https://github.com/login/oauth/authorize?client_id={{clientid}}&amp;scope=public_repo">Sign in with GitHub</a>        
+        <a class="action" id="login" href="https://github.com/login/oauth/authorize?client_id=50937a23e1d140199e95&amp;scope=public_repo">Sign in with GitHub</a>        
       </p>
     </section>
 
